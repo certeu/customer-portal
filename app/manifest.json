@@ -1,0 +1,12 @@
+{
+  "short_name": "Customer Portal",
+  "name": "Customer portal",
+  "icons": [{
+    "src": "images/CERT_logo.jpg",
+    "sizes": "151x104"
+  }],
+  "theme_color": "#0033CC",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

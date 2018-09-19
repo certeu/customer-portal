@@ -175,4 +175,30 @@ angular.module('cpApp')
       return res;
     };
 
+    function get_csv_file() {
+        var data = 'data:text/csv;charset=utf-8,';
+        // jscs:disable validateQuoteMarks
+        data += $scope.filtered_memberships_headers.join(',') + "\n";
+        $scope.filtered_memberships.forEach(function(propArray) {
+            data += propArray.join(',') + "\n";
+        });
+        // jscs:enable validateQuoteMarks
+        return encodeURI(data);
+    }
+
+    $scope.download_csv = function() {
+        var dl = document.createElement('a');
+        if ($scope.filtered_memberships.length > 0) {
+          dl.setAttribute('href', get_csv_file());
+          dl.setAttribute('download', 'contacts.csv');
+          dl.setAttribute('visibility', 'hidden');
+          dl.setAttribute('display', 'none');
+          document.body.appendChild(dl);
+          dl.click();
+        }
+        else {
+            notifications.showError('no contacts available.');
+        }
+    };
+
   });

@@ -13,8 +13,17 @@ angular
     'ngTouch', 'ngCsv', 'ngFileUpload', 'ui.bootstrap', 'ui.select', 'uiSwitch', 'ui.router',
     'ngNotificationsBar', 'angular-loading-bar', 'services.config'
   ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
+      .state('home', {
+        url: '/home',
+        views: {
+          content: {
+            template: '',
+            controller: 'HomeCtrl'
+          }
+        }
+      })
       .state('login', {
         url: '/login',
         views: {
@@ -173,8 +182,10 @@ angular
           }
         }
       });
-    $urlRouterProvider.otherwise('/login');
   })
+  .config(['$urlRouterProvider', function($urlRouterProvider) {
+    $urlRouterProvider.otherwise('/home');
+  }])
   .config(['notificationsConfigProvider', function(notificationsConfigProvider) {
     // auto hide
     notificationsConfigProvider.setAutoHide(true);

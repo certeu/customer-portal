@@ -25,6 +25,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var serveStatic = require('serve-static');
+
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-ssh');
   grunt.loadNpmTasks('grunt-ssh-deploy');
@@ -124,16 +126,16 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              serveStatic('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveStatic('./bower_components')
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                serveStatic('./app/styles')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -143,13 +145,13 @@ module.exports = function (grunt) {
           port: 9001,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
-              connect.static('test'),
+              serveStatic('.tmp'),
+              serveStatic('test'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveStatic('./bower_components')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -186,8 +188,7 @@ module.exports = function (grunt) {
     // Make sure code styles are up to par
     jscs: {
       options: {
-        config: '.jscsrc',
-        verbose: true
+        config: '.jscsrc'
       },
       all: {
         src: [
@@ -219,7 +220,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer-core')({browsers: ['last 1 version']})
+          require('autoprefixer')({browsers: ['last 1 version']})
         ]
       },
       server: {

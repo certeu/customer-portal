@@ -51,6 +51,11 @@
       "main": [
         "src/sha1.js"
       ]
+    },
+    "strophe.js": {
+      "main": [
+        "dist/strophe.js"
+      ]
     }
   }
 }

@@ -44,5 +44,7 @@
   "scripts": {
     "test": "karma start test/karma.conf.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "bower": "^1.8.8"
+  }
 }

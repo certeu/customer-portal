@@ -70,7 +70,10 @@ angular.module('cpApp')
       //bosh.connection.rawOutput = DOAPI.logRawOutput;
 
       bosh.connection.nickname = bosh.connection.jid.split('/')[1];
+
       bosh.connection.send($pres().c('priority').t('-1'));
+      bosh.connection.flush();
+
       bosh.connection.addHandler(onPresence, null, 'presence');
       bosh.connection.addHandler(onPublicMessage, null, 'message', 'groupchat');
 

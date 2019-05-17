@@ -26,6 +26,7 @@
   <uib-pagination total-items="totalItems" ng-change="pageChanged()"
                   ng-show="!!files.length"
                   ng-model="currentPage" items-per-page="20"
+                  force-ellipses="true" max-size="20"
                   class="pagination-sm" boundary-links="true" rotate="false">
   </uib-pagination>
 </div>

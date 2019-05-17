@@ -46,6 +46,19 @@ angular
           }
         }
       })
+      .state('welcome', {
+        url: '/welcome',
+        views: {
+          header: {
+            templateUrl: 'views/header.html',
+            controller: 'HeaderCtrl'
+          },
+          content: {
+            templateUrl: 'views/welcome.html',
+            controller: 'WelcomeCtrl'
+          }
+        }
+      })
       .state('vulnerabilities', {
         url: '/vulnerabilities',
         views: {

@@ -15,7 +15,7 @@ angular.module('cpApp')
         if(response.headers('cp-totp-required') === 'True'){
           $state.go('two-factor');
         }else{
-          $state.go('organizations');
+          $state.go('welcome');
         }
       }, function(err){
         notifications.showError(err.data.message);
@@ -23,7 +23,7 @@ angular.module('cpApp')
     };
     $scope.verifyTOTP = function(){
       Auth.post($scope.credentials, 'verify-totp').then(function(){
-        $state.go('organizations');
+        $state.go('welcome');
       }, function(err){
         notifications.showError(err.data.message);
       });

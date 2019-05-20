@@ -203,7 +203,7 @@ angular
           }
         }
       });
-    $urlRouterProvider.otherwise('/organizations');
+    $urlRouterProvider.otherwise('/welcome');
   })
   .config(['notificationsConfigProvider', function(notificationsConfigProvider) {
     // auto hide

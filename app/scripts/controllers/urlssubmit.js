@@ -15,32 +15,31 @@ angular.module('cpApp')
       av_scan: true,
       static_analysis: true,
       dynamic_analysis: {
-        vxstream: {
-          1: true,
-          2: false,
-          3: false,
-          4: false
+        fireeye: {
+          'win10x64m': true
         }
       }
     };
 
     $scope.save = function(){
-      var vxAnalysisAvailable = $scope.sampleActions.dynamic_analysis.vxstream;
-      var vxEnvironmentIds = [];
-      for(var key in vxAnalysisAvailable){
-        if(vxAnalysisAvailable.hasOwnProperty(key)){
-          if(vxAnalysisAvailable[key]){
-            vxEnvironmentIds.push(parseInt(key, 10));
-          }
+      var feAnalysisAvailable = $scope.sampleActions.dynamic_analysis.fireeye;
+      var feEnvs = [];
+      for (var k in feAnalysisAvailable){
+        if(feAnalysisAvailable[k]){
+          feEnvs.push(k);
         }
       }
+
       $scope.urls_ = $scope.urls.split('\n');
+
       var dynAnalysis = {
         urls: $scope.urls_,
-        dyn_analysis: {vxstream: vxEnvironmentIds}
+        dyn_analysis: {
+          fireeye: feEnvs
+        }
       };
 
-      GridData('analysis/vxstream-url').save(dynAnalysis, function(resp){
+      GridData('analysis/fireeye-url').save(dynAnalysis, function(resp) {
         for(var i in resp.statuses){
           var st = resp.statuses[i];
           if(st.hasOwnProperty('error')){
@@ -55,11 +54,11 @@ angular.module('cpApp')
       });
     };
 
-    GridData('analysis/vxstream/environments').get().$promise.then(
-      function(resp){
-        $scope.envs = resp.environments;
+    GridData('analysis/fireeye/environments').get(
+      function(resp) {
+        $scope.feenvs = resp.environments;
       },
-      function(err){
+      function(err) {
         notifications.showError(err.data);
       }
     );

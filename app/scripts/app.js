@@ -163,7 +163,7 @@ angular
         }
       })
       .state('viewReport', {
-        url: '/report/:sha256',
+        url: '/report/:sha256/:id',
         views: {
           header: {
             templateUrl: 'views/header.html',
@@ -173,6 +173,7 @@ angular
             templateUrl: 'views/report.html',
             controller: function($scope, $stateParams){
               $scope.sha256 = $stateParams.sha256;
+              $scope.sid = $stateParams.id;
             }
           }
         }

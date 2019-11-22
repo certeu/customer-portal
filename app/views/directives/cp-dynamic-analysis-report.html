@@ -1,22 +1,12 @@
 <h4>Dynamic analysis report</h4>
 <hr>
 <uib-tabset>
-  <uib-tab ng-repeat="summary in summaries" heading="{{summary.response.environmentName}}">
-    <div ng-show="summary.response.html_report">Download:
-      <span ng-repeat="(k, v) in dld">
-        <a target="_blank"
-         href="{{webServiceUrl}}/analysis/vxstream/download/{{summary.response.sha256}}/{{summary.response.environmentId}}/{{k}}">{{
-        v }}</a> | </span>
+  <uib-tab ng-repeat="summary in summaries" heading="{{summary.env}}">
+    <div ng-show="summary.submission_status">
+      <p>{{ summary.submission_status }}</p>
     </div>
-    <table class="table table-condensed table-plain" ng-show="!summary.response.html_report">
-      <tbody>
-      <tr ng-repeat="(key, value) in summary.response" ng-show="key!='environmentId'">
-        <td><strong>{{ key | humanizeFilter }}</strong></td>
-        <td>{{ value }}</td>
-      </tr>
-      </tbody>
-    </table>
-    <iframe ng-show="summary.response.html_report" width="100%" height="1000" frameborder="0"
-            sandbox="allow-scripts allow-same-origin" ng-src="{{ summary.response.html_report_url }}"></iframe>
+    <pre ng-show="summary.report">
+      {{ summary.report | json }}
+    </pre>
   </uib-tab>
 </uib-tabset>

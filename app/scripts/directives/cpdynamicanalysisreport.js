@@ -7,7 +7,7 @@
  * # cpDynamicAnalysisReport
  */
 angular.module('cpApp')
-  .directive('cpDynamicAnalysisReport', function ($q, $filter, $sce, FireEye, notifications, config) {
+  .directive('cpDynamicAnalysisReport', function ($q, $filter, $sce, FireEye, notifications) {
     return {
       restrict: 'E',
       templateUrl: 'views/directives/cp-dynamic-analysis-report.html',
@@ -18,19 +18,19 @@ angular.module('cpApp')
           var promises = [];
 
           var statuses = resp.statuses;
-          for (var status_idx in statuses) {
-            var status = statuses[status_idx];
+          for (var statusIdx in statuses) {
+            var status = statuses[statusIdx];
 
             var env = status.env;
-            var report_id = status.report_id;
-            var submission_status = status.submission_status;
+            var reportId = status.report_id;
+            var submissionStatus = status.submission_status;
 
-            if (submission_status === 'DONE') {
-              promises.push(FireEye.report({sha256: attrs.hash, rid: report_id}).$promise);
+            if (submissionStatus === 'DONE') {
+              promises.push(FireEye.report({sha256: attrs.hash, rid: reportId}).$promise);
             } else {
               var summary = {
                 'env': env,
-                'submission_status': submission_status
+                'submission_status': submissionStatus
               };
 
               summaries.push(summary);
@@ -38,11 +38,11 @@ angular.module('cpApp')
           }
 
           $q.all(promises).then(function(resources) {
-            for (var resource_idx in resources) {
-              var resource = resources[resource_idx];
+            for (var resourceIdx in resources) {
+              var resource = resources[resourceIdx];
               var results = resource.results;
-              for (var result_idx in results) {
-                var result = results[result_idx];
+              for (var resultIdx in results) {
+                var result = results[resultIdx];
 
                 var env = result.env;
                 var report = result.result;
